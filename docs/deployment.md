@@ -23,7 +23,7 @@ Vercel の Project Settings > Environment Variables に以下を登録する。
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://kemhfvnzmqxoqzkryzkp.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=Supabase publishable key
-NEXT_PUBLIC_APP_URL=https://Vercelの本番URL
+NEXT_PUBLIC_APP_URL=https://recall-grid.vercel.app
 SUPABASE_SERVICE_ROLE_KEY=Supabase service role key
 SUPABASE_DB_PASSWORD=Supabase database password
 ```
@@ -32,17 +32,23 @@ SUPABASE_DB_PASSWORD=Supabase database password
 
 ## Supabase Auth の設定
 
-Vercel の本番 URL が決まったら Supabase Dashboard で以下を設定する。
+Vercel の本番 URL は以下。
+
+```txt
+https://recall-grid.vercel.app
+```
+
+Supabase Dashboard で以下を設定する。
 
 Authentication > URL Configuration:
 
 ```txt
 Site URL:
-https://Vercelの本番URL
+https://recall-grid.vercel.app
 
 Redirect URLs:
-https://Vercelの本番URL/auth/callback
-https://Vercelの本番URL/auth/update-password
+https://recall-grid.vercel.app/auth/callback
+https://recall-grid.vercel.app/auth/update-password
 ```
 
 Google ログインを使う場合は、Supabase の Google provider と Google Cloud OAuth consent / redirect URI の設定も必要。
@@ -61,12 +67,13 @@ npm run build
 ## 初回デプロイ手順
 
 1. GitHub の `main` に push
-2. Vercel で `wawawatamasa0218-cmyk/recall-grid` を Import
+2. Vercel project `recall-grid` を作成
 3. Framework は Next.js を選択
 4. Environment Variables を登録
 5. Deploy
-6. 発行された URL を `NEXT_PUBLIC_APP_URL` と Supabase Auth の Site URL / Redirect URLs に反映
+6. `NEXT_PUBLIC_APP_URL` に `https://recall-grid.vercel.app` を設定
 7. Vercel で Redeploy
+8. Supabase Auth の Site URL / Redirect URLs に本番URLを反映
 
 ## 公開後の確認
 
