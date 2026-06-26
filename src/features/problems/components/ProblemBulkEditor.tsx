@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import Link from "next/link";
 import type { Deck } from "@/features/decks/types";
 import { createDraft, isBlankDraft } from "../draft";
 import { mergeTsvAtRow, parseTsv } from "../parser";
@@ -28,7 +29,7 @@ export function ProblemBulkEditor({ decks, currentCardCount, maxCards }: { decks
   const pasteArea = (text: string) => { const parsed = parseTsv(text); if (parsed.length) setRows((current) => [...current.filter((row) => !isBlankDraft(row)), ...parsed]); };
   const save = () => startTransition(async () => { const result = await saveProblemsAction(deckId, rows); setMessage(result); if (result.ok) setRows(initialRows()); });
 
-  if (!decks.length) return <div className="empty-state"><div className="empty-icon">＋</div><h2>先にデッキを作りましょう</h2><p>問題には保存先が必要です。デッキを1つ作ると、ここでまとめて入力できます。</p><a className="button primary" href="/decks">デッキを作る</a></div>;
+  if (!decks.length) return <div className="empty-state"><div className="empty-icon">＋</div><h2>先にデッキを作りましょう</h2><p>問題には保存先が必要です。デッキを1つ作ると、ここでまとめて入力できます。</p><Link className="button primary" href="/decks">デッキを作る</Link></div>;
 
   return <section className="editor-card">
     <div className="editor-toolbar"><label>保存先<select value={deckId} onChange={(e) => setDeckId(e.target.value)}>{decks.map((deck) => <option key={deck.id} value={deck.id}>{deck.name}</option>)}</select></label><label>問題タイプ<select disabled><option>一問一答</option></select></label><div className="toolbar-tip"><kbd>TSV</kbd><span>Excelの4列をそのまま貼り付け</span></div></div>

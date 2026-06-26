@@ -1,1 +1,1 @@
-export type BillingStatus = { provider: "none"; canManageSubscription: false };
+export type BillingStatus = { provider: "stripe" | "none"; configured: boolean; canManageSubscription: boolean };

@@ -1,13 +1,12 @@
-import { db } from "@/lib/db";
 import { countDecks } from "@/features/decks/repository";
 import { countCards } from "@/features/problems/repository";
 import { PLAN_LIMITS } from "./limits";
 import type { Entitlements, Plan } from "./types";
 
 export async function getPlan(userId: string): Promise<Plan> {
-  const supabase = await db();
-  const { data } = await supabase.from("profiles").select("plan").eq("user_id", userId).maybeSingle();
-  return data?.plan === "pro" ? "pro" : "free";
+  // MVP期間はDBの将来用plan値にかかわらず、全ユーザーをFreeとして扱う。
+  void userId;
+  return "free";
 }
 
 export async function getEntitlements(userId: string): Promise<Entitlements> {

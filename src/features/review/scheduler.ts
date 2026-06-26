@@ -1,11 +1,15 @@
-import type { ReviewResult } from "./types";
+import type { ReviewResult, SchedulingState } from "./types";
 
-const DAYS_BY_RESULT: Record<ReviewResult, number> = { again: 0, hard: 1, good: 3, easy: 7 };
+export function scheduleReview(result: ReviewResult, state: SchedulingState, reviewedAt = new Date()) {
+  const correct = result === "good" || result === "easy";
+  const nextReviewAt = new Date(reviewedAt);
+  if (correct) {
+    nextReviewAt.setDate(nextReviewAt.getDate() + 3);
+    nextReviewAt.setHours(9, 0, 0, 0);
+  } else nextReviewAt.setMinutes(nextReviewAt.getMinutes() + 10);
+  return { nextReviewAt, state: { stability: 0, difficulty: 5, reps: state.reps + 1, lapses: state.lapses + (correct ? 0 : 1) } };
+}
 
 export function calculateNextReviewAt(result: ReviewResult, reviewedAt = new Date()) {
-  const next = new Date(reviewedAt);
-  next.setDate(next.getDate() + DAYS_BY_RESULT[result]);
-  if (result === "again") next.setMinutes(next.getMinutes() + 10);
-  else next.setHours(9, 0, 0, 0);
-  return next;
+  return scheduleReview(result, { stability: 0, difficulty: 5, reps: 0, lapses: 0 }, reviewedAt).nextReviewAt;
 }

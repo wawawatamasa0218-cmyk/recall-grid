@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/features/auth/actions";
 
-const nav = [{ href: "/dashboard", label: "ホーム", icon: "⌂" }, { href: "/decks", label: "デッキ", icon: "▱" }, { href: "/problems", label: "問題", icon: "✎" }, { href: "/review", label: "復習", icon: "↻" }];
+const nav = [{ href: "/dashboard", label: "ホーム", icon: "⌂" }, { href: "/decks", label: "デッキ", icon: "▱" }, { href: "/problems", label: "問題", icon: "✎" }, { href: "/review", label: "復習", icon: "↻" }, { href: "/explore", label: "公開デッキ", icon: "◎" }, { href: "/analytics", label: "分析", icon: "⌁" }, { href: "/docs", label: "鳥観図", icon: "◫" }, { href: "/settings", label: "設定", icon: "⚙" }];
 
 export function AppShell({ children, email }: { children: ReactNode; email?: string }) {
   const pathname = usePathname();

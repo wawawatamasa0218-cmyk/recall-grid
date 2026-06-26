@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { signIn, signUp, type AuthState } from "./actions";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const initialState: AuthState = {};
 
@@ -14,6 +15,8 @@ export function AuthForm() {
         <button className={mode === "signup" ? "active" : ""} onClick={() => setMode("signup")} type="button" role="tab" aria-selected={mode === "signup"}>新規登録</button>
       </div>
       <AuthModeForm key={mode} mode={mode} />
+      <button className="google-button" type="button" onClick={async () => { const supabase = createSupabaseBrowserClient(); await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${window.location.origin}/auth/callback` } }); }}><span>G</span> Googleで続ける</button>
+      <a className="forgot-link" href="/auth/forgot-password">パスワードを忘れた場合</a>
       <p className="auth-note">カード情報は不要です。まずは free プランで始められます。</p>
     </div>
   );
