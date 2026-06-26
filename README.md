@@ -6,6 +6,10 @@
 
 全体鳥観図、画面鳥観図、機能フロー、ER図は [docs/diagrams](./docs/diagrams/README.md) にまとめています。
 
+## デプロイ
+
+公開は Vercel + Supabase 構成を想定しています。手順は [docs/deployment.md](./docs/deployment.md) にまとめています。
+
 ## セットアップ
 
 1. Node.js 20.9以上を使用します。nvm環境では `nvm use` を実行します。
