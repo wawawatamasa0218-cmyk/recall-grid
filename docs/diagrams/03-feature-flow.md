@@ -24,12 +24,13 @@ sequenceDiagram
   A-->>P: 再表示
 ```
 
-## 問題作成・TSV 貼り付け
+## 問題作成・CSV / TSV / Excel 貼り付け
 
 ```mermaid
 flowchart LR
-  Paste["Excel / Sheets からTSV貼り付け"]
-  Parser["features/problems/parser.ts\nTSVを行データへ変換"]
+  Paste["Excel / Sheets からコピー貼り付け"]
+  CsvFile["CSV / TSV ファイル読み込み"]
+  Parser["features/problems/parser.ts\nCSV / TSVを行データへ変換"]
   Editor["ProblemBulkEditor\nReact stateで編集"]
   Validator["features/problems/validator.ts\n問題文・答えの未入力チェック"]
   Preview["保存前プレビュー"]
@@ -39,7 +40,9 @@ flowchart LR
   DB[("cards")]
   Storage[("Supabase Storage\ncard-images")]
 
-  Paste --> Parser --> Editor
+  Paste --> Parser
+  CsvFile --> Parser
+  Parser --> Editor
   Editor --> Validator
   Validator --> Preview
   Preview --> Action

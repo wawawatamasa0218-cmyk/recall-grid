@@ -5,7 +5,7 @@ const screens = [
   { path: "/dashboard", title: "ダッシュボード", note: "今日の復習数、デッキ数、カード数、主要導線" },
   { path: "/decks", title: "デッキ", note: "作成・一覧・編集・削除・公開設定" },
   { path: "/decks/[id]", title: "デッキ詳細", note: "カード一覧とデッキ単位の確認" },
-  { path: "/problems", title: "問題作成", note: "TSV貼り付け、複数入力、検索、編集、削除" },
+  { path: "/problems", title: "問題作成", note: "CSV/TSV貼り付け、CSV読み込み、複数入力、検索、編集、削除" },
   { path: "/review", title: "復習", note: "ランダム出題、最大5択、わからない、苦手問題モード" },
   { path: "/explore", title: "公開デッキ", note: "公開デッキ一覧、検索、ランキング、タグ絞り込み" },
   { path: "/share/[slug]", title: "共有ページ", note: "公開デッキ閲覧、コピー、いいね" },
@@ -53,7 +53,7 @@ export default function DocsPage() {
           </article>
           <article>
             <strong>作成</strong>
-            <p>デッキ、カード、TSV一括入力、画像、検索、編集、削除。</p>
+            <p>デッキ、カード、CSV/TSV一括入力、Excelコピー貼り付け、画像、検索、編集、削除。</p>
           </article>
           <article>
             <strong>復習</strong>
@@ -112,7 +112,7 @@ export default function DocsPage() {
         </div>
         <div className="docs-overview-grid compact">
           <article><strong>デッキ</strong><p>作成前に Free 最大3デッキ制限を entitlements 経由で確認。</p></article>
-          <article><strong>問題</strong><p>parser / validator で画面ロジックを分離し、保存時に最大100問制限を確認。</p></article>
+          <article><strong>問題</strong><p>parser / validator でCSV/TSV変換と検証を分離し、保存時に最大100問制限を確認。</p></article>
           <article><strong>復習</strong><p>scheduler.ts が次回復習日を計算し、record_review RPC でログとカードを更新。</p></article>
           <article><strong>共有</strong><p>公開デッキのみ匿名 read 可能。コピー後は別ユーザー所有の deck/card として保存。</p></article>
         </div>

@@ -8,7 +8,7 @@ type Props = { index: number; row: ProblemDraft; error?: ProblemError; onChange:
 export function ProblemRow({ index, row, error, onChange, onDelete, onTsvPaste }: Props) {
   const paste = (event: ClipboardEvent<HTMLInputElement>) => {
     const text = event.clipboardData.getData("text");
-    if (text.includes("\t") || text.includes("\n")) { event.preventDefault(); onTsvPaste(row.id, text); }
+    if (text.includes("\t") || text.includes("\n") || text.split(",").length >= 2) { event.preventDefault(); onTsvPaste(row.id, text); }
   };
   return (
     <div className={`problem-row ${error ? "has-error" : ""}`}>

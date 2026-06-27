@@ -16,7 +16,7 @@ flowchart TB
     Dashboard["/dashboard\nダッシュボード"]
     Decks["/decks\nデッキ一覧・作成・編集・削除・公開設定"]
     DeckDetail["/decks/[id]\nデッキ詳細・カード一覧"]
-    Problems["/problems\n問題作成・TSV貼り付け・検索・編集・削除"]
+    Problems["/problems\n問題作成・CSV/TSV貼り付け・検索・編集・削除"]
     Review["/review\n今日の復習 / 苦手問題モード"]
     Analytics["/analytics\n学習履歴・分析"]
     Settings["/settings\n表示名・プロフィール設定"]
@@ -58,7 +58,7 @@ flowchart TB
 | `/dashboard` | 復習数、デッキ数、カード数、最近のデッキ | 必須 |
 | `/decks` | デッキ作成、一覧、編集、削除、公開設定 | 必須 |
 | `/decks/[id]` | デッキ詳細、登録カード確認 | 必須 |
-| `/problems` | 複数問題入力、TSV貼り付け、検索、編集、削除 | 必須 |
+| `/problems` | 複数問題入力、CSV/TSV貼り付け、CSV読み込み、検索、編集、削除 | 必須 |
 | `/review` | ランダム出題、選択肢回答、復習ログ保存 | 必須 |
 | `/analytics` | 復習履歴、正答率、直近推移 | 必須 |
 | `/settings` | 公開表示名などプロフィール設定 | 必須 |
@@ -79,7 +79,7 @@ journey
   section 作成
     デッキを作成: 5: User
     問題作成画面へ移動: 5: User
-    TSV貼り付けで複数カード作成: 5: User
+    CSV/TSV貼り付けで複数カード作成: 5: User
   section 復習
     今日の復習を開始: 5: User
     5択またはわからないで回答: 4: User
