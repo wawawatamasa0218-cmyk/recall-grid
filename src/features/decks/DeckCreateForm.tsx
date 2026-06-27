@@ -5,7 +5,7 @@ import { createDeckAction, type DeckActionState } from "./actions";
 
 const initialState: DeckActionState = { ok: false };
 
-export function DeckCreateForm({ disabled }: { disabled: boolean }) {
+export function DeckCreateForm({ disabled = false }: { disabled?: boolean }) {
   const [state, action, pending] = useActionState(createDeckAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -31,7 +31,7 @@ export function DeckCreateForm({ disabled }: { disabled: boolean }) {
         )}
       </div>
       <button className="button primary" disabled={disabled || pending}>
-        {pending ? "作成中…" : disabled ? "上限に達しました" : "作成する"}
+        {pending ? "作成中…" : "作成する"}
       </button>
     </form>
   );

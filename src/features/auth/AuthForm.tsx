@@ -17,7 +17,7 @@ export function AuthForm() {
       <AuthModeForm key={mode} mode={mode} />
       <button className="google-button" type="button" onClick={async () => { const supabase = createSupabaseBrowserClient(); await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${window.location.origin}/auth/callback` } }); }}><span>G</span> Googleで続ける</button>
       <a className="forgot-link" href="/auth/forgot-password">パスワードを忘れた場合</a>
-      <p className="auth-note">カード情報は不要です。まずは free プランで始められます。</p>
+      <p className="auth-note">カード情報は不要です。すぐに問題作成と復習を始められます。</p>
     </div>
   );
 }

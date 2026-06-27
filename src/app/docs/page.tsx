@@ -14,7 +14,7 @@ const screens = [
 ];
 
 const tables = [
-  ["profiles", "ユーザーのプラン、AI権限、公開表示名、将来課金用カラム"],
+  ["profiles", "公開表示名、将来拡張用の内部カラム"],
   ["decks", "デッキ本体。公開状態、共有URL、コピー数、いいね数を保持"],
   ["cards", "問題カード本体。タグ、画像、次回復習日時を保持"],
   ["reviews", "復習ログ。回答結果と次回復習日を記録"],
@@ -111,8 +111,8 @@ export default function DocsPage() {
           <span>Supabase</span>
         </div>
         <div className="docs-overview-grid compact">
-          <article><strong>デッキ</strong><p>作成前に Free 最大3デッキ制限を entitlements 経由で確認。</p></article>
-          <article><strong>問題</strong><p>parser / validator でCSV/TSV変換と検証を分離し、保存時に最大100問制限を確認。</p></article>
+          <article><strong>デッキ</strong><p>作成・編集・公開設定を feature 層経由で処理。将来の利用権限判定は entitlements に閉じ込める。</p></article>
+          <article><strong>問題</strong><p>parser / validator でCSV/TSV変換と検証を分離し、保存処理は repository に集約。</p></article>
           <article><strong>復習</strong><p>scheduler.ts が次回復習日を計算し、record_review RPC でログとカードを更新。</p></article>
           <article><strong>共有</strong><p>公開デッキのみ匿名 read 可能。コピー後は別ユーザー所有の deck/card として保存。</p></article>
         </div>

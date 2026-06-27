@@ -102,7 +102,7 @@ erDiagram
 
 | テーブル | 役割 |
 | --- | --- |
-| `profiles` | ユーザーのプラン、AI有効フラグ、公開表示名、将来課金用カラム |
+| `profiles` | 公開表示名、将来拡張用の内部カラム |
 | `decks` | デッキ本体。公開・共有URL・コピー数・いいね数も保持 |
 | `cards` | 問題カード本体。画像、タグ、次回復習日時、簡易復習状態も保持 |
 | `reviews` | 復習ログ。回答結果とその時点の次回復習日を記録 |
@@ -141,7 +141,7 @@ flowchart LR
 
 | 将来機能 | 既にある受け皿 |
 | --- | --- |
-| Stripe 課金 | `profiles.plan`, `stripe_customer_id`, `subscription_status`, `features/billing` |
+| Stripe 課金 | `profiles` の内部カラム、`features/billing` |
 | AI 問題生成 | `profiles.ai_enabled`, `features/entitlements` |
 | 高度な復習アルゴリズム | `cards.stability`, `difficulty`, `reps`, `lapses`, `features/review/scheduler.ts` |
 | デッキ売買 | 現時点では未実装。将来は `decks` と別に listing/order 系テーブルを追加 |

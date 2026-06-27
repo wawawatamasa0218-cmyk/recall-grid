@@ -40,7 +40,6 @@ SUPABASE_DB_PASSWORD=database-password
 - 公開デッキの新着順・人気順・コピー数ランキング
 - 公開デッキへのいいね、公開名設定
 - 公開デッキを独立した自分のデータとしてコピー
-- Freeプランは最大3デッキ、100カード
 
 ## 実装しない機能
 
@@ -48,7 +47,7 @@ SUPABASE_DB_PASSWORD=database-password
 - AI問題生成、AI誤答生成、外部有料API
 - 高度なFSRSアルゴリズム
 
-Free／Pro、AI利用権限、将来の課金識別子のDB構造だけは残しています。StripeやOpenAI APIを呼ぶ処理はMVPに含めません。
+将来の利用権限、AI利用権限、課金識別子のDB構造だけは内部的に残しています。現在の画面では作成制限を出さず、StripeやOpenAI APIを呼ぶ処理もMVPに含めません。
 
 ## セキュリティ
 

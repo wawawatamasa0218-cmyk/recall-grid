@@ -15,8 +15,8 @@ sequenceDiagram
 
   U->>P: デッキ作成・編集・削除
   P->>A: Server Action 実行
-  A->>E: Free制限を確認
-  E-->>A: maxDecks など
+  A->>E: 将来用の利用権限境界を通過
+  E-->>A: MVPでは制限なし
   A->>R: deck操作
   R->>DB: decks を insert/update/delete
   DB-->>R: 結果
@@ -35,7 +35,7 @@ flowchart LR
   Validator["features/problems/validator.ts\n問題文・答えの未入力チェック"]
   Preview["保存前プレビュー"]
   Action["features/problems/actions.ts"]
-  Entitlement["features/entitlements\nFree最大100問"]
+  Entitlement["features/entitlements\n将来用の利用権限境界"]
   Repository["features/problems/repository.ts"]
   DB[("cards")]
   Storage[("Supabase Storage\ncard-images")]

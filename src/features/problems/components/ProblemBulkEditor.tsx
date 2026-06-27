@@ -13,7 +13,7 @@ import { ProblemPreview } from "./ProblemPreview";
 
 const initialRows = () => Array.from({ length: 3 }, () => createDraft());
 
-export function ProblemBulkEditor({ decks, currentCardCount, maxCards }: { decks: Deck[]; currentCardCount: number; maxCards: number }) {
+export function ProblemBulkEditor({ decks }: { decks: Deck[] }) {
   const [rows, setRows] = useState(initialRows);
   const [deckId, setDeckId] = useState(decks[0]?.id ?? "");
   const [preview, setPreview] = useState(false);
@@ -21,8 +21,6 @@ export function ProblemBulkEditor({ decks, currentCardCount, maxCards }: { decks
   const [importMessage, setImportMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const validation = useMemo(() => validateDrafts(rows), [rows]);
-  const remaining = Math.max(0, maxCards - currentCardCount);
-  const exceedsLimit = validation.rows.length > remaining;
   const errorMap = new Map(validation.errors.map((error) => [error.rowId, error]));
 
   const update = (id: string, field: keyof Omit<ProblemDraft, "id">, value: string) => setRows((current) => current.map((row) => row.id === id ? { ...row, [field]: value } : row));
@@ -63,8 +61,7 @@ export function ProblemBulkEditor({ decks, currentCardCount, maxCards }: { decks
     <div className="paste-zone import-zone"><textarea aria-label="CSVまたはTSV一括貼り付け" placeholder={'Excel / CSVから「問題文, 答え, 解説, タグ」の4列を貼り付け'} onPaste={(e) => { e.preventDefault(); importRows(e.clipboardData.getData("text")); }} /><label className="file-import-button">CSVを読み込む<input type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values" onChange={(e) => { void importFile(e.target.files?.[0] ?? null); e.currentTarget.value = ""; }} /></label></div>
     {importMessage && <p className="import-message">{importMessage}</p>}
     <div className="problem-grid"><div className="problem-header"><span>No.</span><span>問題文 *</span><span>答え *</span><span>解説</span><span>タグ</span><span></span></div>{rows.map((row, index) => <ProblemRow key={row.id} index={index} row={row} error={errorMap.get(row.id)} onChange={update} onDelete={(id) => setRows((current) => current.length === 1 ? [createDraft()] : current.filter((row) => row.id !== id))} onTsvPaste={pasteRows} />)}</div>
-    <div className="editor-footer"><button className="button ghost" type="button" onClick={() => setRows((current) => [...current, createDraft()])} disabled={remaining === 0}>＋ 行を追加</button><span className={`row-count ${exceedsLimit ? "limit-error" : ""}`}>{validation.rows.length}問を入力中 · あと{remaining}問登録可</span><div className="footer-actions"><button className="button secondary" type="button" disabled={!validation.rows.length} onClick={() => setPreview(true)}>プレビュー</button><button className="button primary" type="button" disabled={pending || !validation.rows.length || exceedsLimit || remaining === 0} onClick={save}>{pending ? "保存中…" : "まとめて保存"}</button></div></div>
-    {exceedsLimit && <p className="form-error status-message" role="alert">プランの残り登録数を超えています。{validation.rows.length - remaining}行減らしてください。</p>}
+    <div className="editor-footer"><button className="button ghost" type="button" onClick={() => setRows((current) => [...current, createDraft()])}>＋ 行を追加</button><span className="row-count">{validation.rows.length}問を入力中</span><div className="footer-actions"><button className="button secondary" type="button" disabled={!validation.rows.length} onClick={() => setPreview(true)}>プレビュー</button><button className="button primary" type="button" disabled={pending || !validation.rows.length} onClick={save}>{pending ? "保存中…" : "まとめて保存"}</button></div></div>
     {message && <p className={message.ok ? "form-success status-message" : "form-error status-message"}>{message.message}</p>}
     {preview && <ProblemPreview rows={validation.rows} onClose={() => setPreview(false)} />}
   </section>;
